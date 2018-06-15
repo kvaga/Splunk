@@ -1,0 +1,27 @@
+<form>
+   <label>Token Test</label>
+   <fieldset submitButton="false">
+     <input type="dropdown" token="mySourcetype" searchWhenChanged="true">
+       <label>Select a Sourcetype:</label>
+       <search>
+         <query>index=_internal earliest=-30m |stats values(sourcetype) as st | mvexpand st</query>
+       </search>
+       <fieldForLabel>st</fieldForLabel>
+       <fieldForValue>st</fieldForValue>
+       <choice value="*">All</choice>
+       <default>*</default>
+     </input>
+   </fieldset>
+   <row>
+     <panel>
+       <title>Count for sourcetype: $mySourcetype$</title>
+       <table>
+         <search>
+           <query>index=_internal earliest=-30m sourcetype=$mySourcetype$</query>
+           <earliest></earliest>
+           <latest></latest>
+         </search>
+       </table>
+     </panel>
+   </row>
+ </form>
